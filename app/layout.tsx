@@ -21,7 +21,7 @@ export default function RootLayout({
     <ClerkProvider
     >
       <html lang="en">
-        <body className={classNames(rakkas.className, 'bg-primary')}>{children}</body>
+        <body className={classNames(rakkas.className, 'bg-[#07012a]')}>{children}</body>
       </html>
     </ClerkProvider>
   )
