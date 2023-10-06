@@ -1,6 +1,7 @@
 import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs'
 
+import classNames from 'classnames';
 import type { Metadata } from 'next'
 import { Rakkas } from 'next/font/google'
 
@@ -18,10 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider
-    
     >
       <html lang="en">
-        <body className={rakkas.className}>{children}</body>
+        <body className={classNames(rakkas.className, 'bg-primary')}>{children}</body>
       </html>
     </ClerkProvider>
   )
