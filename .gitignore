@@ -1,2 +1,7 @@
 .env
 /env
+
+database/channels.json
+test.ipynb
+
+nohup.out
