@@ -1,5 +1,8 @@
 import './globals.css';
+import './styles.css'
 import { ClerkProvider } from '@clerk/nextjs'
+
+import { NavBar } from './(landing)/components';
 
 import classNames from 'classnames';
 import type { Metadata } from 'next'
