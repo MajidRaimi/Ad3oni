@@ -7,13 +7,13 @@ const tajawal = Tajawal({
     subsets: ['arabic']
 })
 
-const ShareWithUsButton = ({ isSecondary }: { isSecondary: boolean }) => {
+const ShareWithUsButton = () => {
     return (
-        <button className={classNames({'border border-white bg-opacity-0 text-[#FFF] hidden lg:block mb-0 hover:bg-opacity-100 hover:bg-white hover:text-primary p-0' : isSecondary},'bg-white w-36 h-12 text-primary rounded-lg mb-16 font-serif mx-auto pt-1 duration-300 border border-transparent hover:text-white hover:bg-transparent hover:border-white', tajawal.className, )}>
-            {
-                isSecondary ? 'شارك' : 'شاركنا دعاءك'
-            }
-        </button>
+        <div className='flex items-start h-24 justify-center mx-24 lg:justify-end'>
+            <button className={classNames('bg-white w-36 h-12 text-primary rounded-lg  font-serif pt-1 duration-300 border border-transparent hover:text-white hover:bg-transparent hover:border-white', tajawal.className,)}>
+                شاركنا دعاءك
+            </button>
+        </div>
     )
 }
 

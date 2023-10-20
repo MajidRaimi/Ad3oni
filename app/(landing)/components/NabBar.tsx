@@ -5,7 +5,7 @@ import classNames from "classnames"
 import { IconComponent } from "@components/index"
 import { AlignJustify } from "lucide-react"
 import { Tajawal } from "next/font/google"
-import { ShareWithUsButton, DrawerButton } from "."
+import { ShareWithUsButton, DrawerButton, ShareButton } from "."
 
 
 
@@ -31,9 +31,8 @@ const Links = () => {
 const NabBar = () => {
     return (
         <nav className='flex h-24 items-center justify-between px-8 md:px-16 lg:px-20 xl:px-24 bg-transparent'>
-            <ShareWithUsButton isSecondary={true} />
+            <ShareButton />
             <Links />
-            {/* <DrawerButton/> */}
             <AlignJustify className='lg:hidden cursor-pointer'/>
             <IconComponent />
         </nav>

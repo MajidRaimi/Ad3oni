@@ -6,7 +6,7 @@ const Hero = () => {
         <section className='h-screen background flex flex-col  justify-between text-white'>
             <NavBar />
             <PrayerFormattedText />
-            <ShareWithUsButton isSecondary={false}/>
+            <ShareWithUsButton />
         </section>
     )
 }
