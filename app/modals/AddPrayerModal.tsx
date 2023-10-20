@@ -76,7 +76,7 @@ const AddPrayerDialog: React.FC<DialogProps> = ({
                         <h3 className="font-bold text-lg">  شاركنا دعاءك وأكسب الأجر</h3>
                         <div className='form-control'>
                             <label className='label'>
-                                <button disabled={!!error || !prayer} onClick={onCorrectorCheck} className={classNames('label-text text-blue-500 mb-[-24px] cursor-pointer', tajawal.className, {
+                                <button type='button' disabled={!!error || !prayer} onClick={onCorrectorCheck} className={classNames('label-text text-blue-500 mb-[-24px] cursor-pointer', tajawal.className, {
                                     'text-slate-300 cursor-default': !prayer
                                 })}>تدقيق الأخطاء الأملائية</button>
                                 <span className="label-text-alt"></span>
