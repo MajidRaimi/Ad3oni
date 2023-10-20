@@ -17,11 +17,7 @@ const useArabic = () => {
         })
 
         const data = await response.json()
-
-        console.log(data.diacWord)
-
         return data.diacWord
-
     }
 
     const tashkeel = async (text: string) => {

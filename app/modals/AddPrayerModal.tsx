@@ -1,3 +1,4 @@
+'use client'
 import { useState, useRef, TextareaHTMLAttributes } from 'react';
 import { X } from "lucide-react";
 import { Tajawal } from "next/font/google";
@@ -21,7 +22,7 @@ const AddPrayerDialog: React.FC<DialogProps> = ({
     dialogRef
 }) => {
 
-    const {corrector} = useArabic()
+    const { corrector } = useArabic()
 
     const [prayer, setPrayer] = useState('')
     const [error, setError] = useState('')
@@ -48,7 +49,9 @@ const AddPrayerDialog: React.FC<DialogProps> = ({
     const onCorrectorCheck = async () => {
         const correctedPrayer = await corrector(prayer);
         setPrayer(correctedPrayer)
-        if(prayerRef.current) prayerRef.current.value = correctedPrayer;
+        if (prayerRef.current) {
+            prayerRef.current.value = correctedPrayer;
+        }
     }
 
 
@@ -73,7 +76,9 @@ const AddPrayerDialog: React.FC<DialogProps> = ({
                         <h3 className="font-bold text-lg">  شاركنا دعاءك وأكسب الأجر</h3>
                         <div className='form-control'>
                             <label className='label'>
-                                <span onClick={onCorrectorCheck} className={classNames('label-text text-blue-500 mb-[-24px] cursor-pointer', tajawal.className)}>تدقيق الأخطاء الأملائية</span>
+                                <button disabled={!!error || !prayer} onClick={onCorrectorCheck} className={classNames('label-text text-blue-500 mb-[-24px] cursor-pointer', tajawal.className, {
+                                    'text-slate-300 cursor-default': !prayer
+                                })}>تدقيق الأخطاء الأملائية</button>
                                 <span className="label-text-alt"></span>
                             </label>
                             <textarea
@@ -94,9 +99,9 @@ const AddPrayerDialog: React.FC<DialogProps> = ({
                         </div>
 
                         <button className={classNames('bg-primary text-white w-24 h-8  rounded-lg  font-serif pt-1 duration-300 border border-transparent ', tajawal.className, {
-                            'text-black bg-slate-300 cursor-not-allowed': error,
+                            'text-black bg-slate-300 cursor-not-allowed': error || !prayer,
                             'hover:text-primary hover:bg-white hover:border-primary': !error
-                        })} disabled={!!error} onClick={closeDialog}>
+                        })} disabled={!!error || !prayer} onClick={closeDialog}>
                             مشاركة
                         </button>
 
