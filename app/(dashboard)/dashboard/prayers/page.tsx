@@ -1,11 +1,20 @@
+import { getPrayers } from "@/lib/prayers"
 
 
-import React from 'react'
 
-const page = () => {
+const page = async () => {
+
+  const {prayers} = await getPrayers();
+
   return (
     <div>
-      Prayers
+      {prayers?.map(prayer => {
+        return (
+          <div key={prayer.id}>
+            {prayer.plainText}
+          </div>
+        )
+      })}
     </div>
   )
 }

@@ -1,10 +1,12 @@
 'use client'
-import { useState, useRef, TextareaHTMLAttributes } from 'react';
+import { useState, useRef, useTransition } from 'react';
 import { X } from "lucide-react";
-import { Tajawal } from "next/font/google";
+import { Tajawal, Cairo } from "next/font/google";
 import classNames from "classnames";
 
 import { useArabic } from '../hooks';
+import { addPrayerAction } from '../_actions';
+import { toast } from 'sonner';
 
 interface DialogProps {
     closeDialog: () => void;
@@ -16,6 +18,10 @@ const tajawal = Tajawal({
     subsets: ['arabic']
 })
 
+const cairo = Cairo({
+    weight: ['400'],
+    subsets: ['arabic']
+})
 
 const AddPrayerDialog: React.FC<DialogProps> = ({
     closeDialog,
@@ -24,14 +30,26 @@ const AddPrayerDialog: React.FC<DialogProps> = ({
 
     const { corrector } = useArabic()
 
+    const [isPending, startTransition] = useTransition()
+
     const [prayer, setPrayer] = useState('')
     const [error, setError] = useState('')
 
-    const prayerRef = useRef<HTMLTextAreaElement>(null)
+    const handleSubmit = async () => {
 
-
-    const handleSubmit = () => {
-
+        if (!prayer || typeof prayer !== 'string') return
+        startTransition(() => addPrayerAction(prayer))
+        closeDialog()
+        toast.success(' شكرا لك لمشاركة الدعاء، احتسب الأجر   🙏 ',
+            {
+                duration: 3000,
+                className: classNames('pt-4', cairo.className),
+                style: {
+                    paddingTop: '20px'
+                }
+            }
+        )
+        setPrayer('')
     }
 
     const onPrayerChange = (prayer: string) => {
@@ -49,9 +67,6 @@ const AddPrayerDialog: React.FC<DialogProps> = ({
     const onCorrectorCheck = async () => {
         const correctedPrayer = await corrector(prayer);
         setPrayer(correctedPrayer)
-        if (prayerRef.current) {
-            prayerRef.current.value = correctedPrayer;
-        }
     }
 
 
@@ -65,7 +80,6 @@ const AddPrayerDialog: React.FC<DialogProps> = ({
                             () => {
                                 setError('')
                                 setPrayer('')
-                                if (prayerRef.current) prayerRef.current.value = ''
                                 closeDialog()
                             }
                         }
@@ -73,15 +87,16 @@ const AddPrayerDialog: React.FC<DialogProps> = ({
                         <X />
                     </button>
                     <form className='rtl text-end flex flex-col space-y-2'>
-                        <h3 className="font-bold text-lg">  شاركنا دعاءك وأكسب الأجر</h3>
+                        <h3 className="font-bold text-2xl">  شاركنا دعاءك وأكسب الأجر</h3>
                         <div className='form-control'>
                             <label className='label'>
-                                <button type='button' disabled={!!error || !prayer} onClick={onCorrectorCheck} className={classNames('label-text text-blue-500 mb-[-24px] cursor-pointer', tajawal.className, {
+                                <button type='button' disabled={!!error || !prayer || isPending} onClick={onCorrectorCheck} className={classNames('label-text text-blue-500 mb-[-24px] cursor-pointer', tajawal.className, {
                                     'text-slate-300 cursor-default': !prayer
                                 })}>تدقيق الأخطاء الأملائية</button>
                                 <span className="label-text-alt"></span>
                             </label>
                             <textarea
+                                value={prayer}
                                 dir='rtl'
                                 placeholder="سبحان الله و بحمده، سبحان الله العظيم"
                                 rows={10}
@@ -90,7 +105,7 @@ const AddPrayerDialog: React.FC<DialogProps> = ({
                                 })}
                                 onChange={(e) => onPrayerChange(e.target.value)}
                                 required
-                                ref={prayerRef}
+                                disabled={isPending}
                             ></textarea>
                             <label className='label'>
                                 <span className={classNames('label-text-alt text-rose-500', tajawal.className)}>{error}</span>
@@ -100,8 +115,10 @@ const AddPrayerDialog: React.FC<DialogProps> = ({
 
                         <button className={classNames('bg-primary text-white w-24 h-8  rounded-lg  font-serif pt-1 duration-300 border border-transparent ', tajawal.className, {
                             'text-black bg-slate-300 cursor-not-allowed': error || !prayer,
-                            'hover:text-primary hover:bg-white hover:border-primary': !error
-                        })} disabled={!!error || !prayer} onClick={closeDialog}>
+                            'hover:text-primary hover:bg-white hover:border-primary': !error && prayer
+                        })} disabled={!!error || !prayer || isPending} onClick={handleSubmit}
+                            type='button'
+                        >
                             مشاركة
                         </button>
 

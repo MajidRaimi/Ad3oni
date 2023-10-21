@@ -1,6 +1,8 @@
+'use client'
+
 import Link from "next/link"
 import classNames from "classnames"
-
+import { toast } from "sonner"
 
 import { IconComponent } from "@components/index"
 import { AlignJustify } from "lucide-react"
@@ -19,7 +21,17 @@ const tajawal = Tajawal({
 const Links = () => {
     return (
         <div className={classNames('lg:flex items-center justify-evenly hidden w-full pt-1', tajawal.className)}>
-            <Link href='/'>منصاتنا</Link>
+            <Link href='/' onClick={() => toast.success(
+                'شكرا للمشاركة',
+                {
+
+                    duration: 2000,
+                    className: 'text-center',
+                    style: {
+                        
+                    }
+                }
+            )}>منصاتنا</Link>
             <Link href='/'>تطبيقنا</Link>
             <Link href='/'>عن ادعوني</Link>
         </div>

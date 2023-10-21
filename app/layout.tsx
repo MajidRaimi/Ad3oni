@@ -1,14 +1,15 @@
-import './globals.css';
-import './styles.css'
 import { ClerkProvider } from '@clerk/nextjs'
-
-import { NavBar } from './(landing)/components';
-
 import classNames from 'classnames';
 import type { Metadata } from 'next'
-import { Rakkas } from 'next/font/google'
+import { Rakkas, Tajawal } from 'next/font/google'
+import { Toaster } from 'sonner';
+
+import './globals.css';
+import './styles.css'
+
 
 const rakkas = Rakkas({ weight: "400", subsets: ['arabic'] })
+const tajawal = Tajawal({ weight: "400", subsets: ['arabic'] })
 
 export const metadata: Metadata = {
   title: 'ادْعُونِي',
@@ -21,10 +22,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider
-    >
+    <ClerkProvider>
       <html lang="en">
-        <body className={classNames(rakkas.className, 'bg-[#07012a]')}>{children}</body>
+        <body className={classNames(rakkas.className, 'bg-[#07012a]')}>
+          <Toaster dir='rtl' className={tajawal.className}/>
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   )
