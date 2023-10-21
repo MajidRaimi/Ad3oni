@@ -1,4 +1,5 @@
 import { getPrayers } from "@/lib/prayers"
+import { Prayer } from "@prisma/client";
 
 
 
@@ -8,7 +9,7 @@ const page = async () => {
 
   return (
     <div>
-      {prayers?.map(prayer => {
+      {prayers?.map((prayer: Prayer) => {
         return (
           <div key={prayer.id}>
             {prayer.plainText}
