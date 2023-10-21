@@ -1,4 +1,4 @@
-import { Hero, AboutUs } from "./export"
+import { Hero, AboutUs, OurApp } from "./export"
 
 
 import React from 'react'
@@ -6,8 +6,9 @@ import React from 'react'
 const page = () => {
   return (
     <main>
-      <Hero/>
-      <AboutUs/>
+      <Hero />
+      <AboutUs />
+      <OurApp />
     </main>
   )
 }

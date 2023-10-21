@@ -6,7 +6,7 @@ const getPrayers = async () => {
     try {
         const prayers = await prisma.prayer.findMany({
             where: {
-                status : {
+                status: {
                     in: ['APPROVED', 'PENDING', 'REJECTED']
                 }
             }
@@ -33,6 +33,22 @@ const addPrayer = async (prayer: string) => {
 }
 
 
+const getTodaysPrayer = async () => {
+    try {
+        const todaysPrayer = await prisma.prayer.findFirst({
+            where: {
+                status: 'APPROVED',
+                today: true
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+        });
+        return { todaysPrayer };
+    } catch (error) {
+        return { error }
+    }
+}
 
 
 
@@ -44,5 +60,5 @@ const addPrayer = async (prayer: string) => {
 
 
 export {
-    getPrayers, addPrayer
+    getPrayers, addPrayer, getTodaysPrayer
 }

@@ -1,11 +1,9 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/client"
 }
 
 datasource db {
   provider = "mongodb"
-  
   url      = env("DATABASE_URL")
 }
 
@@ -20,6 +18,7 @@ model Prayer {
   plainText     String
   formattedText String   @default("")
   status        Status   @default(PENDING)
+  today         Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
