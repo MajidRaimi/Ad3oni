@@ -4,10 +4,15 @@ import prisma from "./prisma";
 
 const getPrayers = async () => {
     try {
-        const prayers = await prisma.prayer.findMany();
+        const prayers = await prisma.prayer.findMany({
+            where: {
+                status : {
+                    in: ['APPROVED', 'PENDING', 'REJECTED']
+                }
+            }
+        });
         return { prayers };
     } catch (error) {
-        console.log(error);
         return { error }
     }
 }
