@@ -3,8 +3,13 @@ import prisma from "@/lib/prisma"
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
-    const { todaysPrayer } = await getTodaysPrayer();
 
+    const todaysPrayer = await prisma.prayer.findFirst({
+        where: {
+            status: 'APPROVED',
+            today: true,
+        }
+    })
 
     try {
         return NextResponse.json({
