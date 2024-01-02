@@ -7,8 +7,9 @@ import { toast } from "sonner"
 import { IconComponent } from "@components/index"
 import { AlignJustify } from "lucide-react"
 import { Tajawal } from "next/font/google"
-import { ShareWithUsButton, DrawerButton, ShareButton } from "."
+import { ShareWithUsButton, DrawerButton, ShareButton, MyNavbar } from "."
 
+import '../styles.css'
 
 
 const tajawal = Tajawal({
@@ -28,7 +29,7 @@ const Links = () => {
                     duration: 2000,
                     className: 'text-center',
                     style: {
-                        
+
                     }
                 }
             )}>منصاتنا</Link>
@@ -45,7 +46,7 @@ const NabBar = () => {
         <nav className='flex h-24 items-center justify-between px-8 md:px-16 lg:px-20 xl:px-24 bg-transparent'>
             <ShareButton />
             <Links />
-            <AlignJustify className='lg:hidden cursor-pointer'/>
+            <div></div>
             <IconComponent />
         </nav>
     )

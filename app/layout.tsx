@@ -6,6 +6,7 @@ import { Toaster } from 'sonner';
 
 import './globals.css';
 import './styles.css'
+import { MyNavbar } from './(landing)/components';
 
 
 const rakkas = Rakkas({ weight: "400", subsets: ['arabic'] })
@@ -25,7 +26,8 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={classNames(rakkas.className, 'bg-[#07012a]')}>
-          <Toaster dir='rtl' className={tajawal.className}/>
+          <MyNavbar />
+          <Toaster dir='rtl' className={tajawal.className} />
           {children}
         </body>
       </html>
